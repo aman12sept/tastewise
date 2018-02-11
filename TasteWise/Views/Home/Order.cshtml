@@ -1,0 +1,1379 @@
+﻿
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/shared/_Layout.cshtml";
+}
+
+@section metatags
+{
+    <meta name="description" content="Order Page" />
+    <meta name="keywords" content="Order Keyword" />
+}
+
+<link href="~/Content/animate.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link href="~/Content/mycss.css" rel="stylesheet" />
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<style>
+    .rounded {
+        border-radius: 10px;
+        background: #000;
+    }
+
+    .edge {
+        border-radius: 10px;
+    }
+
+    .food {
+        height: 100%;
+        width: 100%;
+        position: static;
+    }
+
+    .homepage-headline {
+        position: relative;
+        text-align: center;
+        color: #fff;
+    }
+
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .centered {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #blur {
+        opacity: 0.8;
+        filter: alpha(opacity=50); /* For IE8 and earlier */
+    }
+</style>
+
+@*<script>
+ 
+        location.reload();
+
+</script>*@
+
+
+
+
+
+
+@*-----------------top menu part------------------*@
+
+
+
+
+<div id="fix">
+
+    <div class="row">
+        <div class="col-sm-7">
+            <div align="right">
+                <font face="Adobe Ming Std L" size="10" style="color:red">Taste!</font>
+                <font face="Adobe Ming Std L" size="10" style="color:cornflowerblue">    Wise</font>
+            </div>
+        </div>
+
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-2" id="s_display">
+            <div align="right">
+                <div><h3 class="btn-link" id="myBtn">SignUp/LogIn</h3></div>
+            </div>
+        </div>
+        <div class="col-sm-2 dropdown hidden" id="l_display">
+            <div>
+
+                <label id="uphone" class="hidden">@ViewBag.phone</label>
+                <div><h3>Hello &nbsp;&nbsp;<label id="uname">@ViewBag.name</label></h3></div>
+                <div class="dropdown-content" align="center">
+                    <a href="#" style="text-decoration:none" id="logout">Log Out</a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-1">
+            <form action="Home/cart" method="post">
+                <input type="submit" class="btn btn-link" value="Your Cart Logo" />
+            </form>
+            
+            <span class="badge" style="background-color:yellow"><font color="black">@ViewBag.cart_val</font></span>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        @*<div class="modal-content" style="height:600px; width:800px">
+            <span class="close">&times;</span>*@
+        <div id="loginbox" style="margin-top:50px; height:400px; width:600px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Log In</div>
+                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                    <form id="loginform" action="Home/Login" method="post" class="form-horizontal" role="form">
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="login_phone" type="text" class="form-control" name="phone" value="" placeholder="phone number">
+                        </div>
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="login_password" type="password" class="form-control" name="password" placeholder="password">
+                        </div>
+
+
+                        <div class="input-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:10px" class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-12 controls">
+
+                                <input type="submit" id="btn-login" class="btn btn-success" value="Login" />
+                                <button class="btn btn-primary Cancel" id="Cancel">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 control">
+                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                                    Don't have an account!
+                                    <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
+                                        Sign Up Here
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div id="signupbox" style="display:none; height:500px; width:700px" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Sign Up</div>
+                    <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Log In</a></div>
+                </div>
+                <div class="panel-body">
+                    <form id="signupform" action="Home/Signup" method="post" class="form-horizontal" role="form">
+
+                        <div id="signupalert" style="display:none" class="alert alert-danger">
+                            <p>Error:</p>
+                            <span></span>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-3 control-label">Phone Number</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone Number">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstname" class="col-md-3 control-label">Name</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-3 control-label">Password</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-offset-3 col-md-9">
+                                <button id="signup" type="submit" class="btn btn-info "><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+
+                                <button class="btn btn-primary Cancel" id="Cancel">Cancel</button>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </form>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+    @*<form action="Home/Signup" method="post">
+            <input type="number" name="phone" />
+            <input type="text" name="name" />
+            <input type="text" name="password" />
+            <input type="submit" value="submit" />
+        </form>*@
+
+
+
+
+    <br />
+    <br />
+    <div class="row>" align="center">
+        <a href="~/Home/Home" style="text-decoration:none"><font face="Bell MT" size="5">HOME</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @*<a href="~/Home/Services" style="text-decoration:none"><font face="Bell MT" size="5">ORDER</font></a>*@
+        <div class="dropdown">
+            <a href="~/Home/Order" style="text-decoration:none"><font face="Bell MT" size="5">ORDER</font></a>
+            <div class="dropdown-content" align="center">
+                <a href="~/Home/Order/marathi" style="text-decoration:none" id="Tab_Marathi">Marathi</a>
+                <a href="~/Home/Order/punjabi" style="text-decoration:none" id="Tab_Punjabi">Punjabi</a>
+                <a href="~/Home/Order/ni" style="text-decoration:none" id="Tab_NI">North Indian</a>
+                <a href="~/Home/Order/bihari" style="text-decoration:none" id="Tab_Bihari">Bihari</a>
+                <a href="~/Home/Order/gujrati" style="text-decoration:none" id="Tab_Gujrati">Gujrati</a>
+                <a href="~/Home/Order/si" style="text-decoration:none" id="Tab_SI">South Indian</a>
+                <a href="~/Home/Order" style="text-decoration:none" id="Tab_Other">OTHERS</a>
+            </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="~/Home/Gallery" style="text-decoration:none"><font face="Bell MT" size="5">EARN MONEY</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="~/Home/Company" style="text-decoration:none"><font face="Bell MT" size="5">ABOUT US</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="~/Home/Contact" style="text-decoration:none"><font face="Bell MT" size="5">CONTACT US</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    </div>
+
+    <div style="width:100%; height:67px; background-color:#800a0a">
+        <br />
+        <div align="center"><font color="white" size="5" face="Lucida Bright">GET 25% off on every item for advance order of 6 days</font></div>
+    </div>
+
+</div>
+
+
+
+
+
+<form action="Home/Logout" method="post" class="hidden">
+    <input type="submit" value="submit" id="log" />
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script>
+
+        $("#signup").click(function () {
+                  alert("signup");
+                   })
+    </script>*@
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("Cancel")[0];
+var span1 = document.getElementsByClassName("Cancel")[1];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+span1.onclick = function () {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+
+    }
+}
+
+//$(".Cancel").click(function () {
+//    alert("asdf");
+//})
+
+</script>
+
+
+
+@*-----------------top menu part------------------*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="Top_Img_All hidden">
+    <img src="~/Content/images/2.jpg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+<div class="Top_Img_Marathi hidden">
+    <img src="~/Content/images/maharastra_2.jpeg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+<div class="Top_Img_Punjabi hidden">
+    <img src="~/Content/images/punjabi_2.jpeg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+<div class="Top_Img_NI hidden">
+    <img src="~/Content/images/ni_2.jpeg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+<div class="Top_Img_Bihari hidden">
+    <img src="~/Content/images/bihari_2.jpeg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+<div class="Top_Img_Gujrati hidden">
+    <img src="~/Content/images/rajesthni_2.jpeg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+<div class="Top_Img_SI hidden">
+    <img src="~/Content/images/si_2.jpeg" alt="image1" style="height:533px; width:100%" id="blur" />
+</div>
+
+<div class="row marathi">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Puran Puri</h2>
+                <h5>Maharastrian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Gajar ka Halua', '1', '50')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Besan Aundi</h2>
+                <h5 class="cuisine text-ellipsis">Maharastrian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Thekua', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+
+<div class="row marathi">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Modak</h2>
+                <h5 class="cuisine text-ellipsis">Maharastrian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Pera', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Chakili</h2>
+                <h5 class="cuisine text-ellipsis">Maharastrian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+<div class="row marathi">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Besan Wadi</h2>
+                <h5 class="cuisine text-ellipsis">Maharastrian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item4', '4', '400')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Methi wadi</h2>
+                <h5 class="cuisine text-ellipsis">Maharastrian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item5', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+<div class="row ni">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">Dal Bati</h2>
+                <h5 class="cuisine text-ellipsis">North Indian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item6', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">North Indian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item7', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+<div class="row ni">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">North Indian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">North Indian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+<div class="row ni">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">North Indian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">North Indian</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+<div class="row punjab">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">Panjabi</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">Panjabi</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+<br />
+
+<div class="row punjab">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue;">
+            <br />
+            <div class="col-sm-6">
+
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+
+
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">Panjabi</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="col-sm-5">
+        <div class="row" data-holder-rendered="true" style="width: 695px;height: 265px; background-color:aliceblue">
+            <br />
+
+            <div class="col-sm-6">
+                <img src="~/Content/images/image1.jpg" alt="image1" style="height:233px; width:320px;" />
+            </div>
+            <div class="col-sm-5">
+
+                <h2 class="revealOnScroll" data-animation="fadeInUp">veg</h2>
+                <h5 class="cuisine text-ellipsis">Panjabi</h5>
+
+                <h4 class="revealOnScroll" data-animation="fadeInUp">Amar is a good boy. He loves apple . But now <br /> his only liking is gajar ka halwa </h4>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-sm-6 ">
+                        <span class="glyphicon glyphicon-star" style="color:brown; height: 50px;"></span>
+                        <span style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">4.0</span>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-danger " onclick="place_order('Item3', '2', '100')">ORDER NOW</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+</div>
+
+
+@*----------------Adding order data in database------------------*@
+
+
+<form action="Order" method="post">
+
+    <input type="text" id="Item_Name" name="Item_Name" class="hidden" />
+    <input type="text" id="Qty" name="Qty" class="hidden" />
+    <input type="text" id="Price" name="Price" class="hidden" />
+    <input type="submit" id="Order" value="Order" class="hidden" />
+</form>
+
+
+
+<script>
+
+    function place_order(x, y, z) {
+
+        $("#Item_Name").val(x);
+        $("#Qty").val(y);
+        $("#Price").val(z);
+        $("#Order").click();
+
+     
+    }
+
+</script>
+
+
+@*----------------Adding order data in database------------------*@
+
+
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px;
+        padding-left: 117px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+
+
+<style>
+    /*Contact sectiom*/
+    .content-header {
+        font-family: 'Oleo Script', cursive;
+        color: #fcc500;
+        font-size: 45px;
+    }
+
+    .section-content {
+        text-align: center;
+    }
+
+    #contact {
+        font-family: 'Teko', sans-serif;
+        padding-top: 60px;
+        width: 100%;
+        width: 82vw;
+        height: 568px;
+        background: #3a6186; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #3a6186, #89253e); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #3a6186, #89253e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        color: #fff;
+    }
+
+    .contact-section {
+        padding-top: 40px;
+    }
+
+        .contact-section .col-md-6 {
+            width: 50%;
+        }
+
+    .form-line {
+        border-right: 1px solid #B29999;
+    }
+
+    .form-group {
+        margin-top: 10px;
+    }
+
+    label {
+        font-size: 1.3em;
+        line-height: 1em;
+        font-weight: normal;
+    }
+
+    .form-control {
+        font-size: 1.3em;
+        color: #080808;
+    }
+
+    textarea.form-control {
+        height: 135px;
+        /* margin-top: px;*/
+    }
+
+    .submit {
+        font-size: 1.1em;
+        float: right;
+        width: 150px;
+        background-color: transparent;
+        color: #fff;
+    }
+</style>
+@*<h1 class="revealOnScroll" data-animation="fadeInUp">asdfsdfasdfasdf</h1>*@
+
+<script src="https://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.7.2.js"></script>
+
+@*<h1 class="revealOnScroll" data-animation="fadeInUp">Trigger a CSS animation on scroll</h1>
+    <h2><a href="http://webbb.be/blog/trigger-css-animation-scroll/" title="Trigger CSS animations on scroll">Read the tutorial about 'reveal animations on scroll'</a></h2>
+    <span>...scroll down...</span>
+    <h3 class="revealOnScroll" data-animation="lightSpeedIn">Other animation</h3>
+    <div class="marged">
+        <div class="block revealOnScroll" data-animation="zoomOut" data-timeout="400">
+            <div class="image"></div>
+            <h4>Block 1</h4>
+        </div>
+        <div class="block revealOnScroll" data-animation="flipInX">
+            <div class="image"></div>
+            <h4>Block 2</h4>
+        </div>
+        <div class="block revealOnScroll" data-animation="flipInX" data-timeout="800">
+            <div class="image"></div>
+            <h4>Block 3</h4>
+        </div>
+    </div>*@
+
+<br />
+<br />
+<br />
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0.js"></script>
+
+
+
+<script>
+    $(function () {
+
+        var $window = $(window),
+            win_height_padded = $window.height() * 1.1,
+            isTouch = Modernizr.touch;
+
+        if (isTouch) { $('.revealOnScroll').addClass('animated'); }
+
+        $window.on('scroll', revealOnScroll);
+
+        function revealOnScroll() {
+            var scrolled = $window.scrollTop(),
+                win_height_padded = $window.height() * 1.1;
+
+            // Showed...
+            $(".revealOnScroll:not(.animated)").each(function () {
+                var $this = $(this),
+                    offsetTop = $this.offset().top;
+
+                if (scrolled + win_height_padded > offsetTop) {
+                    if ($this.data('timeout')) {
+                        window.setTimeout(function () {
+                            $this.addClass('animated ' + $this.data('animation'));
+                        }, parseInt($this.data('timeout'), 10));
+                    } else {
+                        $this.addClass('animated ' + $this.data('animation'));
+                    }
+                }
+            });
+            // Hidden...
+            $(".revealOnScroll.animated").each(function (index) {
+                var $this = $(this),
+                    offsetTop = $this.offset().top;
+                if (scrolled + win_height_padded < offsetTop) {
+                    $(this).removeClass('animated fadeInUp flipInX lightSpeedIn')
+                }
+            });
+        }
+
+        revealOnScroll();
+    });
+</script>
+
+<script>
+    
+    
+    var url = window.location.href;
+    var id = url.substring(url.lastIndexOf('/') + 1);
+
+    if (id == "marathi") {
+        $('.ni').addClass('hidden');
+        $('.punjab').addClass('hidden');
+
+        $('.Top_Img_Marathi').removeClass('hidden');
+
+    }
+
+    if (id == "punjabi") {
+        $('.ni').addClass('hidden');
+        $('.marathi').addClass('hidden');
+
+        $('.Top_Img_Punjabi').removeClass('hidden');
+    }
+    if (id == "ni") {
+        $('.marathi').addClass('hidden');
+        $('.punjab').addClass('hidden');
+
+        $('.Top_Img_NI').removeClass('hidden');
+    }
+    if(id == "bihari"){
+        $('.Top_Img_Bihari').removeClass('hidden');
+    }
+    if (id == "gujrati") {
+        $('.Top_Img_Gujrati').removeClass('hidden');
+    }
+    if (id == "si") {
+        $('.Top_Img_SI').removeClass('hidden');
+    }
+    if (id == "Order") {
+        $('.Top_Img_All').removeClass('hidden');
+    }
+</script>
+
+
+@*-----------------top menu part------------------*@
+
+<input type="text" value="@ViewBag.name" id="bag_name1" class="hidden" />
+
+<script>
+    debugger;
+  
+    var x = $("#bag_name1").val();
+ 
+    if (x != "") {
+        $("#l_display").removeClass("hidden");
+        $("#s_display").addClass("hidden");
+    }
+
+
+</script>
+<script>
+    $("#logout").click(function () {
+
+        $("#log").click();
+    })
+</script>
+
+<style>
+    /*#fix{
+        width:100%;
+        top:0;
+        position:fixed;
+    }*/
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+</style>
+
+@*-----------------top menu part------------------*@

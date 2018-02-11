@@ -1,0 +1,47 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+    @*@Html.Partial("_Header")*@
+    @RenderSection("metatags", false)
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+
+
+
+    <!-- Top Menu Start -->
+    @*@Html.Partial("_TopMenu")*@
+    <!-- End of Top Menu-->
+    <!-- Banner Start -->
+    @*@Html.Partial("_Banner")*@
+    <!-- End of Banner -->
+    @*<div id="templatemo_content_wrapper">
+        <div id="templatemo_content">*@
+
+    <!-- Content Area -->
+    @*<div id="column_w530">
+        <div class="header_02">Welcome to our WEBSITE!</div>*@
+
+    @RenderBody()
+    @*<div class="cleaner"></div>
+        </div>*@
+    <!-- End of Content Area -->
+    <!-- Right Sidebar -->
+    @*@Html.Partial("_Sidebar")*@
+    <!-- End of Right Sidebar -->
+    @*<div class="cleaner"></div>
+            </div>
+        </div>*@
+
+    <!-- Footer -->
+    @Html.Partial("_Footer")
+    <!-- End of Footer -->
+</body>
+</html>
